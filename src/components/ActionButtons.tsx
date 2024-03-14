@@ -1,3 +1,4 @@
+import { AlignJustify, Bolt, GlobeIcon, Search, Smile } from "lucide-react";
 import {
   Sheet,
   SheetContent,
@@ -5,25 +6,50 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-  SheetClose,
-  SheetFooter,
 } from "./ui/sheet";
+import Link from "next/link";
 
 const ActionButton = () => {
   return (
     <Sheet>
-      <SheetTrigger asChild>WOOOWW</SheetTrigger>
-      <SheetContent>
+      <SheetTrigger asChild>
+        <AlignJustify />
+      </SheetTrigger>
+      <SheetContent className="border-l-zinc-800 bg-zinc-950 text-zinc-50">
         <SheetHeader>
-          <SheetTitle>Edit profile</SheetTitle>
           <SheetDescription>
-            Make changes to your profile here. Click save when you're done.
+            <div className="mt-10 flex w-full flex-col items-start space-y-10 text-3xl text-zinc-50 ">
+              <Link
+                href="/"
+                className="flex items-center space-x-1 hover:underline"
+              >
+                <GlobeIcon />
+                <span>Explore</span>
+              </Link>
+              <Link
+                href="/username"
+                className="flex items-center space-x-1 hover:underline"
+              >
+                <Smile />
+                <span>Profile</span>
+              </Link>
+              <Link
+                href="/search"
+                className="flex items-center space-x-1 hover:underline"
+              >
+                <Search />
+                <span>Search</span>
+              </Link>
+              <Link
+                href="/user/account"
+                className="flex items-center space-x-1 hover:underline"
+              >
+                <Bolt />
+                <span>Account</span>
+              </Link>
+            </div>
           </SheetDescription>
         </SheetHeader>
-        {/* <div className="grid gap-4 py-4"> */}
-        {/*   <div className="grid grid-cols-4 items-center gap-4">Name</div> */}
-        {/*   <div className="grid grid-cols-4 items-center gap-4">Username</div> */}
-        {/* </div> */}
       </SheetContent>
     </Sheet>
   );
