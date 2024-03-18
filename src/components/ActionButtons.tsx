@@ -4,7 +4,6 @@ import {
   SheetContent,
   SheetDescription,
   SheetHeader,
-  SheetTitle,
   SheetTrigger,
 } from "./ui/sheet";
 import Link from "next/link";
