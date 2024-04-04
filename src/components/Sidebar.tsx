@@ -1,7 +1,11 @@
+import { auth } from "@/auth";
 import { Bolt, GlobeIcon, Search, Smile } from "lucide-react";
 import Link from "next/link";
+import UserActionButton from "./UserActionButton";
 
-export default function Sidebar() {
+export default async function Sidebar() {
+  const session = await auth();
+
   return (
     <div className="sticky left-0 top-0 z-40 hidden h-screen w-[9.3rem] flex-col items-start justify-between overflow-y-auto bg-zinc-950 p-2 py-8 text-zinc-50 lg:flex">
       <div>
@@ -34,16 +38,22 @@ export default function Sidebar() {
           </li>
         </ul>
       </div>
-      <div>
+      <div className="self-center">
         <ul>
-          <li className="flex flex-col space-y-4 text-2xl">
-            <Link
-              href="/user/account"
-              className="flex items-center space-x-1 hover:underline"
-            >
-              <Bolt />
-              <span>Account</span>
-            </Link>
+          <li className="flex flex-col items-center space-y-4 text-2xl">
+            {session ? (
+              <Link
+                href="/user/account"
+                className="flex items-center space-x-1 hover:underline"
+              >
+                <Bolt />
+                <span>Account</span>
+              </Link>
+            ) : (
+              <div className="flex flex-col space-y-2">
+                <UserActionButton />
+              </div>
+            )}
           </li>
         </ul>
       </div>

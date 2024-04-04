@@ -5,13 +5,17 @@ import {
   SheetDescription,
   SheetHeader,
   SheetTrigger,
+  SheetFooter,
 } from "./ui/sheet";
 import Link from "next/link";
+import UserActionButton from "./UserActionButton";
+import { auth } from "@/auth";
 
-const ActionButton = () => {
+const ActionButton = async () => {
+  const session = await auth();
   return (
     <Sheet>
-      <SheetTrigger asChild>
+      <SheetTrigger asChild className="hover:cursor-pointer">
         <AlignJustify />
       </SheetTrigger>
       <SheetContent className="border-l-zinc-800 bg-zinc-950 text-zinc-50">
@@ -49,6 +53,13 @@ const ActionButton = () => {
             </div>
           </SheetDescription>
         </SheetHeader>
+        {!session ? (
+          <SheetFooter>
+            <div className="mt-10 flex w-full items-center justify-center text-3xl">
+              <UserActionButton />
+            </div>
+          </SheetFooter>
+        ) : null}
       </SheetContent>
     </Sheet>
   );
