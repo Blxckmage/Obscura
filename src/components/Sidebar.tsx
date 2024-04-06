@@ -22,7 +22,7 @@ export default async function Sidebar() {
               <span>Explore</span>
             </Link>
             <Link
-              href="/username"
+              href={`/profile/${session?.user?.id}`}
               className="flex items-center space-x-1 hover:underline"
             >
               <Smile />

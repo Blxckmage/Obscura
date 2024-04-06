@@ -30,7 +30,7 @@ const ActionButton = async () => {
                 <span>Explore</span>
               </Link>
               <Link
-                href="/username"
+                href={`/profile/${session?.user}`}
                 className="flex items-center space-x-1 hover:underline"
               >
                 <Smile />
