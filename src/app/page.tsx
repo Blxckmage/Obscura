@@ -1,10 +1,13 @@
+import Hero from "@/components/homepage/Hero";
+import Community from "@/components/homepage/Community";
 import Navbar from "@/components/Navbar";
 
 export default function Homepage() {
   return (
-    <main className="flex h-screen items-center justify-center">
+    <main className="min-h-screen">
       <Navbar />
-      <h1>Hello World!</h1>
+      <Hero />
+      <Community />
     </main>
   );
 }
