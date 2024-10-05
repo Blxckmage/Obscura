@@ -1,10 +1,40 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import Link from "next/link";
 import { Label } from "../ui/label";
-import { auth, signIn } from "@/auth";
+import { handleLogin } from "@/lib/actions/auth.actions";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { toast } from "@/hooks/use-toast";
 
-export default async function LoginForm() {
+export default function LoginForm() {
+  const router = useRouter();
+
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    try {
+      const formData = new FormData(event.currentTarget);
+      const response = await handleLogin(formData);
+
+      if (!!response.error) {
+        toast({
+          variant: "destructive",
+          description: "Failed to login",
+        });
+      } else {
+        toast({
+          description: "Logged in successfully",
+        });
+        router.push("/");
+      }
+    } catch (error: any) {
+      toast({
+        variant: "destructive",
+        description: "Failed to login",
+      });
+    }
+  }
+
   return (
     <div className="flex w-full max-w-lg flex-col gap-8 p-8">
       <div className="flex flex-col items-center justify-center gap-3">
@@ -16,16 +46,7 @@ export default async function LoginForm() {
           </Link>
         </p>
       </div>
-      <form
-        className="space-y-5"
-        action={async (formData) => {
-          "use server";
-          await signIn("credentials", formData);
-        }}
-      >
-        {/* NOTE: Imagine not being able to use the `redirectTo` while also passing form data to the signIn function. I genuinely hate auth.js for this. */}
-
-        <input type="hidden" name="redirectTo" value="/" />
+      <form className="space-y-5" onSubmit={handleSubmit}>
         <div className="space-y-2">
           <Label htmlFor="name">Username</Label>
           <Input

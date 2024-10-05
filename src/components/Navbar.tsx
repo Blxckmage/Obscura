@@ -22,7 +22,6 @@ const Navbar = ({ session }: { session?: User }) => {
                 <form
                   action={async () => {
                     "use server";
-                    console.log("signing out");
                     await signOut();
                   }}
                 >

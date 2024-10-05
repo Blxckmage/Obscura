@@ -2,7 +2,9 @@ import NextAuth, { NextAuthConfig } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import db from "./lib/db";
-import { handleLogin } from "./lib/actions/auth.actions";
+import { authenticate } from "./lib/actions/auth.actions";
+import { userSchema } from "./types/user.types";
+import { ZodError } from "zod";
 
 export const nextAuthConfig = {
 	adapter: DrizzleAdapter(db),
@@ -13,19 +15,25 @@ export const nextAuthConfig = {
 				password: { label: "Password", type: "password" },
 			},
 			authorize: async (credentials) => {
-				let user = null;
-				const username = credentials.username as string;
-				const password = credentials.password as string;
+				try {
+					let user = null;
+					const { username, password } =
+						await userSchema.parseAsync(credentials);
 
-				let res = await handleLogin(username, password);
+					let res = await authenticate(username, password);
 
-				if (!res.ok) {
-					throw new Error("Failed to login");
+					if (!res.ok) {
+						throw new Error("Failed to login");
+					}
+
+					user = await res.json();
+
+					return user;
+				} catch (error) {
+					if (error instanceof ZodError) {
+						return null;
+					}
 				}
-
-				user = await res.json();
-
-				return user;
 			},
 		}),
 	],

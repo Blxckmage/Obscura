@@ -24,9 +24,9 @@ export default function SignupForm() {
   const router = useRouter();
 
   async function handleSubmit(data: User) {
-    const response = await handleSignup(data);
+    const response = await handleSignup(JSON.parse(JSON.stringify(data)));
 
-    if (response.ok) {
+    if (response) {
       toast({
         description: "Account created successfully",
       });

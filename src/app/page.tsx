@@ -5,7 +5,6 @@ import { User } from "@/types/user.types";
 
 export default async function Homepage() {
   const session: User = await useSession();
-  console.log("Session: ", session);
 
   return (
     <main className="min-h-screen">
