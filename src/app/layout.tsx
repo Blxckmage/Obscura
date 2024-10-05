@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import "@/styles/globals.css";
-import { Inter } from "next/font/google";
 import { cn } from "@/lib/utils";
-
-export const runtime = "edge";
+import { Inter } from "next/font/google";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -22,7 +21,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={cn("dark", inter.className)}>
-      <body>{children}</body>
+      <body>
+        <main>{children}</main>
+        <Toaster />
+      </body>
     </html>
   );
 }

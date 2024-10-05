@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 
-export default function Hero() {
+export default async function Hero() {
   return (
     <section className="relative flex h-screen flex-col items-center justify-center overflow-hidden py-20 text-center">
       <Particles
@@ -22,7 +22,7 @@ export default function Hero() {
             <hr className="mx-2 h-4 w-px shrink-0 bg-gray-300" />{" "}
             <span
               className={cn(
-                `animate-gradient inline bg-gradient-to-r from-[#ffaa40] via-[#9c40ff] to-[#ffaa40] bg-[length:var(--bg-size)_100%] bg-clip-text text-transparent`,
+                `inline animate-gradient bg-gradient-to-r from-[#ffaa40] via-[#9c40ff] to-[#ffaa40] bg-[length:var(--bg-size)_100%] bg-clip-text text-transparent`,
               )}
             >
               Introducing Obscura Discovery

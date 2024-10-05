@@ -1,7 +1,9 @@
 import Link from "next/link";
 import { Button } from "./ui/button";
+import { User } from "@/types/user.types";
+import { signOut } from "@/auth";
 
-const Navbar = () => {
+const Navbar = ({ session }: { session?: User }) => {
   return (
     <nav className="fixed left-0 right-0 top-0 z-50 border border-b-neutral-600 bg-opacity-20 backdrop-blur-sm backdrop-filter">
       <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
@@ -12,14 +14,33 @@ const Navbar = () => {
             </Link>
           </div>
           <div>
-            <div className="ml-10 flex items-baseline space-x-4">
-              <Link href="/">
-                <Button variant="ghost">Log in</Button>
-              </Link>
-              <Link href="/">
-                <Button variant="secondary">Sign up</Button>
-              </Link>
-            </div>
+            {session ? (
+              <div className="ml-10 flex items-baseline space-x-4">
+                <Link href="/dashboard">
+                  <Button variant="ghost">Dashboard</Button>
+                </Link>
+                <form
+                  action={async () => {
+                    "use server";
+                    console.log("signing out");
+                    await signOut();
+                  }}
+                >
+                  <Button type="submit" variant="secondary">
+                    Log out
+                  </Button>
+                </form>
+              </div>
+            ) : (
+              <div className="ml-10 flex items-baseline space-x-4">
+                <Link href="/auth/login">
+                  <Button variant="ghost">Log in</Button>
+                </Link>
+                <Link href="/auth/signup">
+                  <Button variant="secondary">Sign up</Button>
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </div>
