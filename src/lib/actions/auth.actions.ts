@@ -19,7 +19,9 @@ export async function handleSignup(data: User) {
 
 		return JSON.parse(await response.text());
 	} catch (error) {
-		throw error;
+		if (error instanceof Error) {
+			throw new Error(error.message);
+		}
 	}
 }
 
@@ -32,8 +34,10 @@ export async function handleLogin(formData: FormData) {
 		});
 
 		return response;
-	} catch (err: any) {
-		throw new Error(err);
+	} catch (error) {
+		if (error instanceof Error) {
+			throw new Error(error.message);
+		}
 	}
 }
 
@@ -57,6 +61,8 @@ export async function authenticate(username: string, password: string) {
 
 		return response;
 	} catch (error) {
-		throw error;
+		if (error instanceof Error) {
+			throw new Error(error.message);
+		}
 	}
 }

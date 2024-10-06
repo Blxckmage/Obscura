@@ -3,7 +3,7 @@ import Hero from "@/components/homepage/Hero";
 import useSession from "@/hooks/use-session";
 import { User } from "@/types/user.types";
 
-export default async function Homepage() {
+export default async function LandingPage() {
   const session: User = await useSession();
 
   return (

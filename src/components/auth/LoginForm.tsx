@@ -25,7 +25,7 @@ export default function LoginForm() {
         toast({
           description: "Logged in successfully",
         });
-        router.push("/");
+        router.push("/home");
       }
     } catch (error: any) {
       toast({
