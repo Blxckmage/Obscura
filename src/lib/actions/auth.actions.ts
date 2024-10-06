@@ -8,6 +8,7 @@ export async function handleSignup(data: User) {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
+				Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`,
 			},
 			body: JSON.stringify(data),
 		});
@@ -44,6 +45,7 @@ export async function authenticate(username: string, password: string) {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
+					Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`,
 				},
 				body: JSON.stringify({ username, password }),
 			},
