@@ -3,6 +3,12 @@ import "@/styles/globals.css";
 import { cn } from "@/lib/utils";
 import { Inter } from "next/font/google";
 import { Toaster } from "@/components/ui/toaster";
+import TanstackProvider from "@/providers/TanstackProvider";
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from "@tanstack/react-query";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -19,11 +25,17 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const queryClient = new QueryClient();
+
   return (
     <html lang="en" className={cn("dark", inter.className)}>
       <body>
-        <main>{children}</main>
-        <Toaster />
+        <TanstackProvider>
+          <HydrationBoundary state={dehydrate(queryClient)}>
+            <main>{children}</main>
+            <Toaster />
+          </HydrationBoundary>
+        </TanstackProvider>
       </body>
     </html>
   );

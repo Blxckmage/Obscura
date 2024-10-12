@@ -1,27 +1,29 @@
-export async function getUsers() {
-	const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users`, {
-		headers: {
-			Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`,
-		},
+import { useQuery } from "@tanstack/react-query";
+
+export function getUsers() {
+	return useQuery({
+		queryKey: ["users"],
+		queryFn: () =>
+			fetch(`${process.env.NEXT_PUBLIC_API_URL}/users`, {
+				headers: {
+					Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`,
+				},
+			}).then((res) => {
+				return res.json();
+			}),
 	});
-
-	if (!res.ok) {
-		throw new Error(res.statusText);
-	}
-
-	return res.json();
 }
 
-export async function getUserById(id: number) {
-	const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/${id}`, {
-		headers: {
-			Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`,
-		},
+export function getUserById(id: string) {
+	return useQuery({
+		queryKey: ["users", id],
+		queryFn: () =>
+			fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/${id}`, {
+				headers: {
+					Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`,
+				},
+			}).then((res) => {
+				return res.json();
+			}),
 	});
-
-	if (!res.ok) {
-		throw new Error(res.statusText);
-	}
-
-	return res.json();
 }
